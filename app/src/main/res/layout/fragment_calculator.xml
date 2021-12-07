@@ -1,0 +1,495 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <import type="android.view.View" />
+        <import type="com.example.android.eyeprescriptionconverter.util.EyeSide"/>
+        <import type="com.example.android.eyeprescriptionconverter.util.ConversionType"/>
+
+
+        <variable
+            name="viewModel"
+            type="com.example.android.eyeprescriptionconverter.ui.CalculatorFragmentViewModel" />
+
+        <variable
+            name="sphere"
+            type="String" />
+        <variable
+            name="cyl"
+            type="String" />
+        <variable
+            name="axis"
+            type="String" />
+        <variable
+            name="add"
+            type="String" />
+
+        <variable
+            name="onFocusChangeListener"
+            type="android.view.View.OnFocusChangeListener" />
+
+        <variable
+            name="edittextClickListener"
+            type="android.view.View.OnClickListener" />
+        <variable
+            name="infoButtonClickListener"
+            type="android.view.View.OnClickListener" />
+
+
+
+
+    </data>
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fitsSystemWindows="true"
+        tools:context=".ui.CalculatorFragment">
+
+        <androidx.core.widget.NestedScrollView
+            android:id="@+id/scrollview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/parent_constraint_layout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:descendantFocusability="beforeDescendants"
+                android:focusableInTouchMode="true"
+                android:paddingStart="24dp"
+                android:paddingEnd="24dp">
+
+
+
+                <ImageButton
+                    android:id="@+id/reset"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="8dp"
+                    android:background="@drawable/corner_curve"
+                    android:layout_marginTop="16dp"
+                    android:backgroundTint="?attr/colorPrimary"
+                    android:src="@drawable/ic_reset"
+                    android:onClick="@{() -> viewModel.onResetClick()}"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+
+
+                <com.google.android.material.button.MaterialButtonToggleGroup
+                    android:id="@+id/toggleButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    app:singleSelection="true"
+                    app:selectionRequired="true"
+                    app:checkedButton="@id/rightButton"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/reset">
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/rightButton"
+                        app:cornerRadius="12dp"
+                        style="@style/CustomToggleButton"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Right Eye" />
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/leftButton"
+                        app:cornerRadius="12dp"
+                        style="@style/CustomToggleButton"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Left Eye" />
+                </com.google.android.material.button.MaterialButtonToggleGroup>
+
+
+                <ImageView
+                    android:id="@+id/disclaimer"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_baseline_info_24"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/toggleButton" />
+
+
+                <com.google.android.material.checkbox.MaterialCheckBox
+                    android:id="@+id/left_eye_same"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checked="@={viewModel.sameAsRightCheckBoxState}"
+                    android:minHeight="0dp"
+                    android:text="@string/same_as_right_eye"
+                    android:visibility="@{viewModel.eyeSide == EyeSide.RIGHT ? View.INVISIBLE : View.VISIBLE}"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/toggleButton" />
+
+
+                <include
+                    android:id="@+id/sphere_layout"
+                    layout="@layout/values_text_input_layout"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="8dp"
+                    app:labelText="@{@string/sphere}"
+                    app:value="@{viewModel.eyeSide == EyeSide.RIGHT ? viewModel.sphereRight : viewModel.sphereLeft}"
+                    app:edittextClickListener="@{edittextClickListener}"
+                    app:edittextFocusChangeListener="@{onFocusChangeListener}"
+                    app:valueEnabled="@{viewModel.valueEnabled}"
+                    app:infoButtonClickListener="@{infoButtonClickListener}"
+                    app:layout_constraintEnd_toStartOf="@+id/cylinder_layout"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/left_eye_same" />
+
+
+                <include
+                    android:id="@+id/cylinder_layout"
+                    layout="@layout/values_text_input_layout"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    app:labelText="@{@string/cylinder}"
+                    app:value="@{viewModel.eyeSide == EyeSide.RIGHT ? viewModel.cylRight : viewModel.cylLeft}"
+                    app:edittextClickListener="@{edittextClickListener}"
+                    app:edittextFocusChangeListener="@{onFocusChangeListener}"
+                    app:valueEnabled="@{viewModel.valueEnabled}"
+                    app:infoButtonClickListener="@{infoButtonClickListener}"
+                    android:layout_marginStart="32dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toEndOf="@+id/sphere_layout"
+                    app:layout_constraintTop_toTopOf="@+id/sphere_layout" />
+
+
+                <include
+                    android:id="@+id/axis_layout"
+                    layout="@layout/values_text_input_layout"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    app:labelText="@{@string/axis}"
+                    app:value="@{viewModel.eyeSide == EyeSide.RIGHT ? viewModel.axisRight : viewModel.axisLeft}"
+                    app:edittextClickListener="@{edittextClickListener}"
+                    app:edittextFocusChangeListener="@{onFocusChangeListener}"
+                    app:valueEnabled="@{viewModel.valueEnabled}"
+                    app:infoButtonClickListener="@{infoButtonClickListener}"
+                    android:layout_marginTop="16dp"
+                    app:layout_constraintEnd_toStartOf="@+id/add_layout"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/sphere_layout" />
+
+
+                <include
+                    android:id="@+id/add_layout"
+                    layout="@layout/values_text_input_layout"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    app:labelText="@{@string/add}"
+                    app:value="@{viewModel.eyeSide == EyeSide.RIGHT ? viewModel.addRight : viewModel.addLeft}"
+                    app:edittextClickListener="@{edittextClickListener}"
+                    app:edittextFocusChangeListener="@{onFocusChangeListener}"
+                    app:valueEnabled="@{viewModel.valueEnabled}"
+                    app:infoButtonClickListener="@{infoButtonClickListener}"
+                    android:layout_marginStart="32dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toEndOf="@+id/axis_layout"
+                    app:layout_constraintTop_toTopOf="@+id/axis_layout" />
+
+
+                <TextView
+                    android:id="@+id/convert_to"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="24dp"
+                    android:text="@string/convert_to"
+                    style="@style/label_text_appearance"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/axis_layout" />
+
+
+                <HorizontalScrollView
+                    android:id="@+id/chip_scrollview"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:scrollbars="none"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/convert_to">
+
+                    <com.google.android.material.chip.ChipGroup
+                        android:id="@+id/convert_to_chips"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:checkedChip="@id/reading"
+                        android:paddingTop="8dp"
+                        android:paddingBottom="8dp"
+                        app:selectionRequired="true"
+                        app:singleSelection="true"
+                        app:singleLine="true">
+
+                        <com.google.android.material.chip.Chip
+                            android:id="@+id/reading"
+                            style="@style/CustomChipChoice"
+                            app:chipStartPadding="12dp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            app:chipIcon="@drawable/ic_magnifier"
+                            android:text="@string/reading" />
+
+                        <com.google.android.material.chip.Chip
+                            android:id="@+id/computer"
+                            style="@style/CustomChipChoice"
+                            app:chipStartPadding="12dp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            app:chipIcon="@drawable/ic_computer"
+                            android:text="@string/computer"/>
+
+                        <com.google.android.material.chip.Chip
+                            android:id="@+id/distance"
+                            style="@style/CustomChipChoice"
+                            app:chipStartPadding="12dp"
+                            app:chipIcon="@drawable/ic_binoculars"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/distance" />
+
+
+                    </com.google.android.material.chip.ChipGroup>
+                </HorizontalScrollView>
+
+
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/calculate"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/white"
+                    android:textStyle="bold"
+                    android:paddingTop="16dp"
+                    android:paddingBottom="16dp"
+                    app:cornerRadius="12dp"
+                    android:text="@string/convert"
+                    android:onClick="@{() -> viewModel.onCalculateClick()}"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/chip_scrollview" />
+
+                <ImageView
+                    android:id="@+id/info_computer"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_baseline_info_24"
+                    app:layout_constraintTop_toBottomOf="@id/calculate"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:visibility="@{viewModel.conversionType == ConversionType.COMPUTER &amp;&amp; viewModel.calculateState == true ? View.VISIBLE : View.INVISIBLE}"
+                    />
+
+
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/result_container"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="4dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="4dp"
+                    android:layout_marginBottom="16dp"
+                    android:visibility="@{viewModel.calculateState ? View.VISIBLE : View.GONE}"
+                    app:cardCornerRadius="12dp"
+                    app:cardElevation="2dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/info_computer">
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingStart="16dp"
+                        android:paddingTop="24dp"
+                        android:paddingEnd="16dp"
+                        android:paddingBottom="24dp">
+
+                        <LinearLayout
+                            android:id="@+id/result_labels"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:orientation="horizontal"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent">
+
+                            <TextView
+                                android:id="@+id/eye_label"
+                                style="@style/label_text_appearance"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:gravity="center"
+                                android:text="Eye" />
+
+                            <TextView
+                                android:id="@+id/result_sphere_label"
+                                style="@style/label_text_appearance"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:gravity="center"
+                                android:text="@string/sphere" />
+
+                            <TextView
+                                android:id="@+id/result_cyl_label"
+                                style="@style/label_text_appearance"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:gravity="center"
+                                android:text="@string/cylinder" />
+
+                            <TextView
+                                android:id="@+id/result_axis_label"
+                                style="@style/label_text_appearance"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:gravity="center"
+                                android:text="@string/axis" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/result_right_eye"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="16dp"
+                            android:orientation="horizontal"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/result_labels">
+
+                            <TextView
+                                android:id="@+id/right_eye_label"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:gravity="center"
+                                android:text="Right"
+                                android:textAppearance="?attr/textAppearanceSubtitle2" />
+
+                            <TextView
+                                android:id="@+id/result_sphere_right"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:gravity="center"
+                                android:text="@{viewModel.convertedSphereRight}"
+                                android:textAppearance="?attr/textAppearanceBody1" />
+
+                            <TextView
+                                android:id="@+id/result_cyl_right"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:gravity="center"
+                                android:text="@{viewModel.cylRight}"
+                                android:textAppearance="?attr/textAppearanceBody1" />
+
+                            <TextView
+                                android:id="@+id/result_axis_right"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:gravity="center"
+                                android:text="@{viewModel.axisRight}"
+                                android:textAppearance="?attr/textAppearanceBody1" />
+
+                        </LinearLayout>
+
+                        <View
+                            android:id="@+id/divider"
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:layout_marginStart="16dp"
+                            android:layout_marginTop="8dp"
+                            android:layout_marginEnd="16dp"
+                            android:background="?android:attr/listDivider"
+                            android:elevation="1dp"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/result_right_eye" />
+
+                        <LinearLayout
+                            android:id="@+id/result_left_eye"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:orientation="horizontal"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/divider">
+
+                            <TextView
+                                android:id="@+id/left_eye_label"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:gravity="center"
+                                android:text="Left"
+                                android:textAppearance="?attr/textAppearanceSubtitle2"
+                                android:textSize="14dp" />
+
+                            <TextView
+                                android:id="@+id/result_sphere_left"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:gravity="center"
+                                android:text="@{viewModel.convertedSphereLeft}"
+                                android:textAppearance="?attr/textAppearanceBody1" />
+
+                            <TextView
+                                android:id="@+id/result_cyl_left"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:gravity="center"
+                                android:text="@{viewModel.cylLeft}"
+                                android:textAppearance="?attr/textAppearanceBody1" />
+
+                            <TextView
+                                android:id="@+id/result_axis_left"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:gravity="center"
+                                android:text="@{viewModel.axisLeft}"
+                                android:textAppearance="?attr/textAppearanceBody1" />
+
+                        </LinearLayout>
+
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+                </com.google.android.material.card.MaterialCardView>
+
+
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+        </androidx.core.widget.NestedScrollView>
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+</layout>

@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="labelText"
+            type="String" />
+        <variable
+            name="value"
+            type="String" />
+
+        <variable
+            name="valueEnabled"
+            type="Boolean" />
+
+        <variable
+            name="edittextFocusChangeListener"
+            type="android.view.View.OnFocusChangeListener"/>
+
+        <variable
+            name="edittextClickListener"
+            type="android.view.View.OnClickListener"/>
+
+        <variable
+            name="infoButtonClickListener"
+            type="android.view.View.OnClickListener"/>
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/header"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            style="@style/label_text_appearance"
+            android:text="@{labelText}"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/info_button"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginStart="4dp"
+            android:layout_gravity="center"
+            android:onClick="@{infoButtonClickListener}"
+            app:layout_constraintStart_toEndOf="@id/header"
+            app:layout_constraintTop_toTopOf="@id/header"
+            app:layout_constraintBottom_toBottomOf="@id/header"
+            app:srcCompat="@drawable/ic_baseline_help_24" />
+
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/textField"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            app:boxBackgroundColor="?attr/colorSurface"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/header"
+            app:boxCornerRadiusTopStart="12dp"
+            app:boxCornerRadiusBottomEnd="12dp"
+            app:boxCornerRadiusBottomStart="12dp"
+            app:boxCornerRadiusTopEnd="12dp">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/selected_value"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:enabled="@{valueEnabled ? true : false}"
+                android:onClick="@{edittextClickListener}"
+                app:onValueEditTouch="@{edittextFocusChangeListener}"
+                app:keyListener="@{null}"
+                android:text="@{value}"/>
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.31851851851851853" />
+        <entry key="app/src/main/res/drawable/corner_curve.xml" value="0.15" />
+        <entry key="app/src/main/res/drawable/corner_round.xml" value="0.15" />
+        <entry key="app/src/main/res/drawable/ic_android_logo.xml" value="0.31851851851851853" />
+        <entry key="app/src/main/res/drawable/ic_baseline_help_24.xml" value="0.31851851851851853" />
+        <entry key="app/src/main/res/drawable/ic_baseline_info_24.xml" value="0.31851851851851853" />
+        <entry key="app/src/main/res/drawable/ic_chat.xml" value="0.31851851851851853" />
+        <entry key="app/src/main/res/drawable/ic_computer.xml" value="0.31851851851851853" />
+        <entry key="app/src/main/res/drawable/ic_launcher_background.xml" value="0.31851851851851853" />
+        <entry key="app/src/main/res/drawable/ic_reset.xml" value="0.15" />
+        <entry key="app/src/main/res/drawable/top_round_corners.xml" value="0.31851851851851853" />
+        <entry key="app/src/main/res/font/rubik.xml" value="0.1640625" />
+        <entry key="app/src/main/res/layout/activity_main.xml" value="0.3229166666666667" />
+        <entry key="app/src/main/res/layout/fragment_bottom_sheet_picker.xml" value="0.2346014492753623" />
+        <entry key="app/src/main/res/layout/fragment_calculator.xml" value="0.11979166666666667" />
+        <entry key="app/src/main/res/layout/values_text_input_layout.xml" value="0.2346014492753623" />
+      </map>
+    </option>
+  </component>
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" project-jdk-name="1.8" project-jdk-type="JavaSDK">
+    <output url="file://$PROJECT_DIR$/build/classes" />
+  </component>
+  <component name="ProjectType">
+    <option name="id" value="Android" />
+  </component>
+</project>

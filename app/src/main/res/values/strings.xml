@@ -1,0 +1,40 @@
+<resources>
+    <string name="app_name">EyePrescriptionConverter</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+
+    <string name="sphere">Sphere</string>
+    <string name="cylinder">Cylinder</string>
+    <string name="axis">Axis</string>
+    <string name="add">Add</string>
+
+    <string name="convert">Convert</string>
+    <string name="same_as_right_eye">Same as right eye</string>
+    <string name="reset">Reset</string>
+    <string name="select">Select</string>
+    <string name="convert_to">Convert to:</string>
+    <string name="reading">Reading</string>
+    <string name="computer">Computer</string>
+    <string name="distance">Distance</string>
+    <string name="ok">Okay</string>
+    <string name="got_it">Got it</string>
+    <string name="cancel">Cancel</string>
+
+
+    <string name="sphere_definition">Sphere (SPH) indicates the amount of lens power, measured in diopters (D), prescribed to correct your nearsightedness or farsightedness. \n\nIf the value has a minus sign (-), you are nearsighted; if the number has a plus sign (+) or is not preceded by a plus sign or a minus sign, you are farsighted.</string>
+    <string name="cylinder_definition">Cylinder (CYL) indicates you have a condition where the cornea and/or lens of the eye are irregularly shaped causing blurred vision, in other words, astigmatism. \n\nIt is measured in diopters (D), mostly having a value between 0.00 to +/- 20.00, and go up in steps of 0.25.</string>
+    <string name="axis_definition">Axis indicates the degree of the angle at which the cylinder is placed on your corrective lenses and can be anywhere between 0 and 180 degrees.</string>
+    <string name="add_definition">Add refers to the additional correction you may need to focus at short distances and is more common over the age of 40. </string>
+    <string name="disclaimer">This only calculates the spherical component of the Rx. It does not change the cylinder, axis or prism components - values from the original Rx would be included for these components along with the calculated sphere power.</string>
+    <string name="note">Note</string>
+    <string name="error_type_sphere_empty">Please select a value for \'Sphere\'</string>
+    <string name="error_type_add_empty">Please select a value for \'Add\'</string>
+    <string name="error_type_left_values_empty">Proceed without adding values for Left eye?</string>
+    <string name="error_type_add_right_empty">Please select a value for \'Add\' for right eye</string>
+    <string name="error_type_add_left_empty">Please select a value for \'Add\' for left eye</string>
+    <string name="error_type_right_values_empty">Proceed without adding values for Right eye?</string>
+    <string name="confirm">Confirm</string>
+    <string name="info_computer">Sphere power is calculated based on 50% of add power and follows \'Over Minus / Under Plus\' rule.  </string>
+    <string name="sphere_right">Sphere - Right</string>
+</resources>
